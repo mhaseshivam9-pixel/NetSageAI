@@ -1,0 +1,24 @@
+case_id,symptom,topology_context,show_output,expected_fault
+CASE-01,"PC cannot reach Router","Device: Router R1 (Cisco 4321) | Interface: GigabitEthernet0/0/0 (connected to Switch SW1) | Network: 192.168.1.0/24","show ip interface brief
+GigabitEthernet0/0/0 192.168.1.1 YES manual administratively down down",Interface Down
+CASE-02,"Internet is unreachable","Device: Edge Router R1 | WAN Interface: GigabitEthernet0/0/1 (Next-Hop ISP: 203.0.113.1) | LAN: 192.168.10.0/24","show ip route
+Gateway of last resort is not set",Missing Default Route
+CASE-03,"PC cannot reach remote network","Device: Router R1 | Connected to R2 (10.0.0.2) | Target Subnet: 172.16.1.0/24","show ip route
+% Network unreachable",Missing Route
+CASE-04,"VLAN users cannot communicate","Device: Switch SW1 (Cisco 2960) | Access Port: FastEthernet0/2 (VLAN 20) | PC: 192.168.20.10","show vlan brief
+VLAN 20 not found",Missing VLAN
+CASE-05,"Network shows IP conflict","Device: Switch SW1 / Router R1 | Subnet: 192.168.1.0/24 | Conflicting IP: 192.168.1.50","show logging
+Duplicate IP address 192.168.1.50 detected",Duplicate IP
+CASE-06,"PC cannot communicate with gateway","Device: PC1 (VLAN 10) | Gateway Router R1: 192.168.10.1 on Gig0/0/0 | Host Config:","IP Address: 192.168.10.10
+Subnet Mask: 255.255.255.0
+Default Gateway: 192.168.20.1",Gateway Mismatch
+CASE-07,"Hosts cannot communicate on LAN","Device: PC1 & PC2 | Expected Subnet: 192.168.1.0/24 (255.255.255.0) | PC2 Interface:","IP Address: 192.168.1.25
+Subnet Mask: 255.255.0.0 (Wrong subnet mask configured)
+Default Gateway: 192.168.1.1",Wrong Subnet Mask
+CASE-08,"WAN link is disconnected","Device: Router R1 & R2 | WAN Interface: Serial0/1/0 (Point-to-Point 10.0.0.0/30)","show ip interface brief
+Serial0/1/0 10.0.0.1 YES manual up down",Interface Line Protocol Down
+CASE-09,"Server cannot communicate with LAN gateway","Device: Server1 (Data Center Subnet: 172.16.1.0/24) | Expected Gateway: 172.16.1.1","IP Address: 172.16.1.50
+Subnet Mask: 255.255.255.0
+Default Gateway: 172.16.2.1",Gateway Mismatch
+CASE-10,"Branch office subnet is unreachable","Device: Core Router R1 | Target Branch Subnet: 10.10.10.0/24","show ip route
+% Route not found",Missing Route
